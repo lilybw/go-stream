@@ -1,8 +1,10 @@
 package list
 
 type List[T any] interface {
-	// Add adds an element to the list
+	// Add adds an element to the list fom the back
 	Add(element T)
+	// Push adds an element to the list from the front
+	Push(element T)
 	// Remove removes an element from the list using IndexOf
 	Remove(element T) bool
 	// Contains checks if the list contains an element

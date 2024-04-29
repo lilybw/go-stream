@@ -4,11 +4,7 @@ import (
 	"go-stream/src/list"
 )
 
-type AsyncSource[T any] interface {
-	Next() T
-}
-
-type Stream[T list.Iterator[T]] interface {
+type Stream[T any] interface {
 	ForEach(f func(T))
 	Filter(f func(T) bool) *Stream[T]
 	//Come on go... Map[K any](f func(T) K, newEquals func(K, K) bool) *Stream[K]
@@ -16,6 +12,7 @@ type Stream[T list.Iterator[T]] interface {
 }
 
 type IteratorStream[T any] struct {
+	Stream[T]
 	iterator list.Iterator[T]
 }
 

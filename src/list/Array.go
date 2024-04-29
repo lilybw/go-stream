@@ -33,6 +33,10 @@ func (l *Array[T]) Add(element T) {
 	l.elements = append(l.elements, element)
 }
 
+func (l *Array[T]) Push(element T) {
+	l.elements = append([]T{element}, l.elements...)
+}
+
 func (l *Array[T]) Remove(element T) bool {
 	index := l.IndexOf(element)
 	if index == -1 {
@@ -177,7 +181,7 @@ func (l *Array[T]) Filter(f func(T) bool) *Array[T] {
 	filtered, _ := NewArrayWithCapacity[T](cap(l.elements), l.equals)
 	for _, e := range l.elements {
 		if f(e) {
-			filtered.Add(e)
+			filtered.Push(e)
 		}
 	}
 	return filtered
@@ -187,7 +191,7 @@ func (l *Array[T]) Filter(f func(T) bool) *Array[T] {
 func Map[T any, K any](l *Array[T], f func(T) K, newEquals func(K, K) bool) *Array[K] {
 	mapped, _ := NewArrayWithCapacity[K](cap(l.elements), newEquals)
 	for _, e := range l.elements {
-		mapped.Add(f(e))
+		mapped.Push(f(e))
 	}
 	return mapped
 }
